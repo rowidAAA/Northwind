@@ -1,0 +1,22 @@
+## Visual Studio
+.vs/
+*.user
+*.suo
+bin/
+obj/
+packages/
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+## NuGet
+*.nupkg
+.nuget/
+
+## Others
+*.log
+TestResults/
