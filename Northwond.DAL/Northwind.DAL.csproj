@@ -58,6 +58,10 @@
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Orders.cs" />
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Region.cs" />
+    <Compile Include="Models\Shippers.cs" />
+    <Compile Include="Models\Suppliers.cs" />
+    <Compile Include="Models\Territories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
