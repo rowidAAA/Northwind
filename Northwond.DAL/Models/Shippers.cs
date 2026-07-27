@@ -14,6 +14,6 @@ namespace Northwind.DAL.Models
         [Key]
         public int ShipperID { get; set; }
         public string CompanyName { get; set; }
-        public int Phone { get; set; }
+        public string Phone { get; set; }
     }
 }
