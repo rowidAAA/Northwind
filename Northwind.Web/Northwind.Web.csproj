@@ -214,9 +214,9 @@
       <Project>{cbd78966-13ae-4b43-a313-67ec695fb2a9}</Project>
       <Name>Northwind.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Northwond.DAL\Northwond.DAL.csproj">
+    <ProjectReference Include="..\Northwond.DAL\Northwind.DAL.csproj">
       <Project>{d8c23065-9957-4d8b-bc5e-cd7d948f7a7c}</Project>
-      <Name>Northwond.DAL</Name>
+      <Name>Northwind.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

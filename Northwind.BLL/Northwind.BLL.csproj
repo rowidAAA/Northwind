@@ -44,9 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Northwond.DAL\Northwond.DAL.csproj">
+    <ProjectReference Include="..\Northwond.DAL\Northwind.DAL.csproj">
       <Project>{d8c23065-9957-4d8b-bc5e-cd7d948f7a7c}</Project>
-      <Name>Northwond.DAL</Name>
+      <Name>Northwind.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

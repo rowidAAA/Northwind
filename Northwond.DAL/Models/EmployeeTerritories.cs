@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Northwond.DAL.Models
+namespace Northwind.DAL.Models
 {
     public class EmployeeTerritories
     {
+        public int employeeID { get; set; }
+        public int territoryID { get; set; }
     }
 }

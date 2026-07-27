@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Northwond.DAL.Models
+namespace Northwind.DAL.Models
 {
     public class Category
     {
