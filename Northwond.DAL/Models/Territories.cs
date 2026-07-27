@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Northwind.DAL.Models
 {
-    public class Territories
+    [Table("Territories")]
+    public class Territory
     {
         [Key]
-        public int territoryID { get; set; }
-        public string territoryDescription { get; set; }
-        public int regionID { get; set; }
+        public string TerritoryID { get; set; }  
+        public string TerritoryDescription { get; set; }
+        public int RegionID { get; set; }
     }
 }

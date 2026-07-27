@@ -1,28 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Northwind.DAL.Models
 {
+    [Table("Orders")]
     public class Orders
     {
         [Key]
-        public int orderID { get; set; }
-        public int customerID { get; set; }
-        public int employeeID { get; set; }
-        public DateTime orderDate { get; set; }
-        public DateTime requiredDate { get; set; }
-        public DateTime shippedDate { get; set; }
-        public int shipVia { get; set; }
-        public double freight { get; set; }
-        public string shipName { get; set; }
-        public string shipAddress { get; set; }
-        public string shipCity { get; set; }
-        public string shipRegion { get; set; }
-        public int shipPostalCode { get; set; }
-        public string shipCountry { get; set; }
+        public int OrderID { get; set; }
+        public string CustomerID { get; set; }    
+        public int? EmployeeID { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public DateTime? RequiredDate { get; set; }
+        public DateTime? ShippedDate { get; set; }  
+        public int? ShipVia { get; set; }
+        public decimal? Freight { get; set; }       
+        public string ShipName { get; set; }
+        public string ShipAddress { get; set; }
+        public string ShipCity { get; set; }
+        public string ShipRegion { get; set; }
+        public string ShipPostalCode { get; set; }  
+        public string ShipCountry { get; set; }
     }
 }
