@@ -62,6 +62,7 @@
     <Compile Include="Models\Shippers.cs" />
     <Compile Include="Models\Suppliers.cs" />
     <Compile Include="Models\Territories.cs" />
+    <Compile Include="NorthwindContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
