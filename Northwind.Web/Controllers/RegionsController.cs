@@ -65,7 +65,6 @@ namespace Northwind.Web.Controllers
         {
             regionService.DeleteRegion(id);
             return RedirectToAction("Index");
-
         }
     }
 }

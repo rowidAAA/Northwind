@@ -11,7 +11,7 @@ namespace Northwind.BLL
 {
     public class TerritoryService
     {
-        public List<Territory> GetAllTerritories(Territory territory)
+        public List<Territory> GetAllTerritories()
         {
             using (var db = new NorthwindContext())
             {
