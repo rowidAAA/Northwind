@@ -15,7 +15,12 @@ namespace Northwind.BLL
         {
             using (var db = new NorthwindContext())
             {
-                return db.Regions.ToList();
+                var regions = db.Regions.ToList();
+                foreach (var r in regions)
+                {
+                    r.RegionDescription = r.RegionDescription?.Trim();
+                }
+                return regions;
             }
         }
 
@@ -23,12 +28,18 @@ namespace Northwind.BLL
         {
             using (var db = new NorthwindContext())
             {
-                return db.Regions.Find(id);
+                var region = db.Regions.Find(id);
+                if (region != null)
+                {
+                    region.RegionDescription = region.RegionDescription?.Trim();
+                }
+                return region;
             }
         }
 
         public void CreateRegion(Region region)
         {
+            region.RegionDescription = region.RegionDescription?.Trim();
             using (var db = new NorthwindContext())
             {
                 db.Regions.Add(region);
@@ -51,6 +62,7 @@ namespace Northwind.BLL
 
         public void UpdateRegion(Region region)
         {
+            region.RegionDescription = region.RegionDescription?.Trim();
             using (var db = new NorthwindContext())
             {
                 db.Entry(region).State = System.Data.Entity.EntityState.Modified;

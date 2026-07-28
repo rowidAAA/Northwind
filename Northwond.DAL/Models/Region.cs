@@ -12,7 +12,10 @@ namespace Northwind.DAL.Models
     public class Region
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RegionID { get; set; }
+        [Column(TypeName = "nchar")]
+        [StringLength(50)]
         public string RegionDescription { get; set; }
     }
 }

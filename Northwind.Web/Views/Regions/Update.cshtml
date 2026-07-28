@@ -1,0 +1,25 @@
+﻿@model Northwind.DAL.Models.Region
+
+<div class="modal-header">
+    <button type="button" class="close js-modal-close">&times;</button>
+    <h4>Update Region</h4>
+</div>
+
+@using (Html.BeginForm("Update", "Regions"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RegionID)
+
+    <div class="modal-body">
+        <div class="form-group">
+            @Html.LabelFor(model => model.RegionDescription)
+            @Html.EditorFor(model => model.RegionDescription, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RegionDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-default js-modal-close">Cancel</button>
+    </div>
+}

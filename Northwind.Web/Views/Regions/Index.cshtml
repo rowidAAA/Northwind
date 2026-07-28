@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Northwind.DAL.Models.Region>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table" id="regionsTable">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.RegionDescription)</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.RegionDescription)</td>
+            <td>
+                <a href="#" class="editLink" data-id="@item.RegionID">Edit</a>
+                <text> | </text>
+                <a href="#" class="deleteLink" data-id="@item.RegionID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- Modal shell -->
+<div class="modal fade" id="regionModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="regionModalContent">
+            <!-- AJAX content gets injected here -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+    // Open modal with Edit form
+    $(document).on('click', '.editLink', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        $.get('@Url.Action("Update")/' + id, function (data) {
+            $('#regionModalContent').html(data);
+            $('#regionModal').modal('show');
+        });
+    });
+
+    // Open modal with Delete confirmation
+    $(document).on('click', '.deleteLink', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        $.get('@Url.Action("Delete")/' + id, function (data) {
+            $('#regionModalContent').html(data);
+            $('#regionModal').modal('show');
+        });
+    });
+
+    // Submit Edit/Delete form via AJAX
+    $(document).on('submit', '#regionModalContent form', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        $.post(form.attr('action'), form.serialize(), function () {
+            $('#regionModal').modal('hide');
+            location.reload();
+        });
+    });
+
+    // Manual close handler — works regardless of data-dismiss/Bootstrap version
+    $(document).on('click', '.js-modal-close', function (e) {
+        e.preventDefault();
+        $('#regionModal').modal('hide');
+    });
+});
+    </script>
+}
