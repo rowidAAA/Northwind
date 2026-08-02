@@ -20,7 +20,7 @@ namespace Northwind.Web.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Regions = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription");
+            ViewBag.RegionID = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription");
             return View();
         }
 

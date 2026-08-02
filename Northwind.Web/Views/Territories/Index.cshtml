@@ -1,7 +1,90 @@
-﻿
+﻿@model IEnumerable<Northwind.DAL.Models.Territory>
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
+<p>
+    <a href="#" id="createLink">Create New</a>
+</p>
+<table class="table" id="territoriesTable">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.TerritoryDescription)</th>
+        <th>Region</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.TerritoryDescription)</td>
+            <td>@(item.Region?.RegionDescription)</td>
+            <td>
+                <a href="#" class="editLink" data-id="@item.TerritoryID">Edit</a>
+                <text> | </text>
+                <a href="#" class="deleteLink" data-id="@item.TerritoryID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
 
+<!-- Modal shell -->
+<div class="modal fade" id="territoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="territoryModalContent">
+            <!-- AJAX content gets injected here -->
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var territoryModalEl = document.getElementById('territoryModal');
+        var territoryModal = new bootstrap.Modal(territoryModalEl);
+
+        $(function () {
+            // Open modal with Create form
+            $(document).on('click', '#createLink', function (e) {
+                e.preventDefault();
+                $.get('@Url.Action("Create")', function (data) {
+                    $('#territoryModalContent').html(data);
+                    territoryModal.show();
+                });
+            });
+
+            // Open modal with Edit form
+            $(document).on('click', '.editLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Update")/' + id, function (data) {
+                    $('#territoryModalContent').html(data);
+                    territoryModal.show();
+                });
+            });
+
+            // Open modal with Delete confirmation
+            $(document).on('click', '.deleteLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Delete")/' + id, function (data) {
+                    $('#territoryModalContent').html(data);
+                    territoryModal.show();
+                });
+            });
+
+            // Submit Create/Edit/Delete form via AJAX
+            $(document).on('submit', '#territoryModalContent form', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.post(form.attr('action'), form.serialize(), function () {
+                    territoryModal.hide();
+                    location.reload();
+                });
+            });
+
+            // Manual close handler
+            $(document).on('click', '.js-modal-close', function (e) {
+                e.preventDefault();
+                territoryModal.hide();
+            });
+        });
+    </script>
+}

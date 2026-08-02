@@ -1,7 +1,17 @@
-﻿
-@{
-    ViewBag.Title = "Delete";
+﻿@model Northwind.DAL.Models.Territory
+<div class="modal-header">
+    <button type="button" class="close js-modal-close">&times;</button>
+    <h4>Delete Territory</h4>
+</div>
+<div class="modal-body">
+    <p>Are you sure you want to delete <strong>@Model.TerritoryDescription</strong>?</p>
+</div>
+@using (Html.BeginForm("Delete", "Territories"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TerritoryID)
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-default js-modal-close">Cancel</button>
+    </div>
 }
-
-<h2>Delete</h2>
-
