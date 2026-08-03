@@ -57,7 +57,7 @@ namespace Northwind.BLL
             }
         }
 
-        public void DeleteCategory(string id)
+        public void DeleteCategory(int id)
         {
             using (var db = new NorthwindContext())
             {
@@ -69,5 +69,7 @@ namespace Northwind.BLL
                 }
             }
         }
+
+        
     }
 }

@@ -37,7 +37,7 @@ namespace Northwind.Web.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = 400;
-                return PartialView("_Create", region);
+                return PartialView("Create", region);
             }
 
             try
@@ -48,7 +48,7 @@ namespace Northwind.Web.Controllers
             {
                 ModelState.AddModelError("", "Could not save — that Region ID may already exist.");
                 Response.StatusCode = 400;
-                return PartialView("_Create", region);
+                return PartialView("Create", region);
             }
 
             return new HttpStatusCodeResult(200);
