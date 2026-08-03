@@ -27,7 +27,7 @@ namespace Northwind.Web.Controllers
 
         public ActionResult Create()
         {
-            return PartialView("_Create", new Region());
+            return PartialView("Create", new Region());
         }
 
         [HttpPost]

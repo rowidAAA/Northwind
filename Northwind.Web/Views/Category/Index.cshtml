@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Northwind.DAL.Models.Category>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Categories</h2>
+<p>
+    <a href="#" id="createLink">Create New</a>
+</p>
+<table class="table" id="categoriesTable">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+        <th>@Html.DisplayNameFor(model => model.Description)</th>
+        <th>Photo</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            
+            <td>
+                <a href="#" class="editLink" data-id="@item.CategoryID">Edit</a>
+                <text> | </text>
+                <a href="#" class="deleteLink" data-id="@item.CategoryID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="categoryModalContent"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var categoryModalEl = document.getElementById('categoryModal');
+        var categoryModal = new bootstrap.Modal(categoryModalEl);
+
+        $(function () {
+            $(document).on('click', '#createLink', function (e) {
+                e.preventDefault();
+                $.get('@Url.Action("Create")', function (data) {
+                    $('#categoryModalContent').html(data);
+                    categoryModal.show();
+                });
+            });
+
+            $(document).on('click', '.editLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Edit")/' + id, function (data) {
+                    $('#categoryModalContent').html(data);
+                    categoryModal.show();
+                });
+            });
+
+            $(document).on('click', '.deleteLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Delete")/' + id, function (data) {
+                    $('#categoryModalContent').html(data);
+                    categoryModal.show();
+                });
+            });
+
+            $(document).on('submit', '#categoryModalContent form', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    statusCode: {
+                        200: function () {
+                            categoryModal.hide();
+                            location.reload();
+                        },
+                        400: function (xhr) {
+                            $('#categoryModalContent').html(xhr.responseText);
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.js-modal-close', function (e) {
+                e.preventDefault();
+                categoryModal.hide();
+            });
+        });
+    </script>
+}

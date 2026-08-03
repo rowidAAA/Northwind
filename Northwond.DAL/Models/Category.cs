@@ -23,8 +23,7 @@ namespace Northwind.DAL.Models
         public string Description { get; set; }
 
      
-        [StringLength(255)]
-        public string PhotoPath { get; set; }
+        
 
         //public virtual ICollection<Product> Products { get; set; }
     }
