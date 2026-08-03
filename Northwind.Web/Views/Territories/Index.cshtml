@@ -51,14 +51,14 @@
             });
 
             // Open modal with Edit form
-            $(document).on('click', '.editLink', function (e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                $.get('@Url.Action("Update")/' + id, function (data) {
-                    $('#territoryModalContent').html(data);
-                    territoryModal.show();
-                });
-            });
+$(document).on('click', '.editLink', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.get('@Url.Action("Edit")/' + id, function (data) {  
+        $('#territoryModalContent').html(data);
+        territoryModal.show();
+    });
+});
 
             // Open modal with Delete confirmation
             $(document).on('click', '.deleteLink', function (e) {
@@ -70,7 +70,7 @@
                 });
             });
 
-            // Submit Create/Edit/Delete form via AJAX
+            // Submit Edit/Delete form via AJAX
             $(document).on('submit', '#territoryModalContent form', function (e) {
                 e.preventDefault();
                 var form = $(this);
