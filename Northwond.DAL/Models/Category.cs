@@ -13,9 +13,19 @@ namespace Northwind.DAL.Models
     public class Category
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryID { get; set; }
-        public string CategotyName { get; set; }
+
+        [Required]
+        [StringLength(15)]
+        public string CategoryName { get; set; }
+
         public string Description { get; set; }
-        public byte[] Picture { get; set; }
+
+     
+        [StringLength(255)]
+        public string PhotoPath { get; set; }
+
+        //public virtual ICollection<Product> Products { get; set; }
     }
 }
