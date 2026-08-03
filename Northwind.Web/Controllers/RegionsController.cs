@@ -27,14 +27,31 @@ namespace Northwind.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return PartialView("_Create", new Region());
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Region region)
         {
-            regionService.CreateRegion(region);
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                Response.StatusCode = 400;
+                return PartialView("_Create", region);
+            }
+
+            try
+            {
+                regionService.CreateRegion(region);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Could not save — that Region ID may already exist.");
+                Response.StatusCode = 400;
+                return PartialView("_Create", region);
+            }
+
+            return new HttpStatusCodeResult(200);
         }
 
         public ActionResult Update(int id)

@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<Northwind.DAL.Models.Region>
-
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="#" id="createLink">Create New</a>
 </p>
-
 <table class="table" id="regionsTable">
     <tr>
         <th>@Html.DisplayNameFor(model => model.RegionDescription)</th>
@@ -27,54 +23,68 @@
         </tr>
     }
 </table>
-
-<!-- Modal shell -->
 <div class="modal fade" id="regionModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" id="regionModalContent">
-            <!-- AJAX content gets injected here -->
-        </div>
+        <div class="modal-content" id="regionModalContent"></div>
     </div>
 </div>
 
 @section scripts {
     <script>
+        var regionModalEl = document.getElementById('regionModal');
+        var regionModal = new bootstrap.Modal(regionModalEl);
+
         $(function () {
-    // Open modal with Edit form
-    $(document).on('click', '.editLink', function (e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        $.get('@Url.Action("Update")/' + id, function (data) {
-            $('#regionModalContent').html(data);
-            $('#regionModal').modal('show');
-        });
-    });
+            $(document).on('click', '#createLink', function (e) {
+                e.preventDefault();
+                $.get('@Url.Action("Create")', function (data) {
+                    $('#regionModalContent').html(data);
+                    regionModal.show();
+                });
+            });
 
-    // Open modal with Delete confirmation
-    $(document).on('click', '.deleteLink', function (e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        $.get('@Url.Action("Delete")/' + id, function (data) {
-            $('#regionModalContent').html(data);
-            $('#regionModal').modal('show');
-        });
-    });
+            $(document).on('click', '.editLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Update")/' + id, function (data) {
+                    $('#regionModalContent').html(data);
+                    regionModal.show();
+                });
+            });
 
-    // Submit Edit/Delete form via AJAX
-    $(document).on('submit', '#regionModalContent form', function (e) {
-        e.preventDefault();
-        var form = $(this);
-        $.post(form.attr('action'), form.serialize(), function () {
-            $('#regionModal').modal('hide');
-            location.reload();
-        });
-    });
+            $(document).on('click', '.deleteLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Delete")/' + id, function (data) {
+                    $('#regionModalContent').html(data);
+                    regionModal.show();
+                });
+            });
 
-    // Manual close handler — works regardless of data-dismiss/Bootstrap version
-    $(document).on('click', '.js-modal-close', function (e) {
-        e.preventDefault();
-        $('#regionModal').modal('hide');
-    });
-});
+            // Submit — reload on success (200), re-render modal content on validation failure (400)
+            $(document).on('submit', '#regionModalContent form', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    statusCode: {
+                        200: function () {
+                            regionModal.hide();
+                            location.reload();
+                        },
+                        400: function (xhr) {
+                            $('#regionModalContent').html(xhr.responseText);
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.js-modal-close', function (e) {
+                e.preventDefault();
+                regionModal.hide();
+            });
+        });
     </script>
 }

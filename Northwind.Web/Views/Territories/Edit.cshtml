@@ -3,7 +3,7 @@
     <button type="button" class="close js-modal-close">&times;</button>
     <h4>Update Territory</h4>
 </div>
-@using (Html.BeginForm("Update", "Territories"))
+@using (Html.BeginForm("Edit", "Territories"))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TerritoryID)

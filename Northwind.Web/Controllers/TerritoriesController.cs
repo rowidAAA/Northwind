@@ -25,9 +25,26 @@ namespace Northwind.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Territory territory)
         {
-            territoryService.CreateTerritory(territory);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.RegionID = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription", territory.RegionID);
+                return View(territory);
+            }
+
+            try
+            {
+                territoryService.CreateTerritory(territory);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Could not save — that Territory ID may already exist.");
+                ViewBag.RegionID = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription", territory.RegionID);
+                return View(territory);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -36,8 +53,8 @@ namespace Northwind.Web.Controllers
             var territory = territoryService.GetTerritoryByID(id);
             if (territory == null)
                 return HttpNotFound();
-            ViewBag.Regions = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription", territory.RegionID);
-            return PartialView("_Edit", territory);
+            ViewBag.RegionID = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription", territory.RegionID);
+            return PartialView("Edit", territory);
         }
 
         [HttpPost]
@@ -54,7 +71,7 @@ namespace Northwind.Web.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_Delete", territory);
+            return PartialView("Delete", territory);
         }
 
         [HttpPost, ActionName("Delete")]

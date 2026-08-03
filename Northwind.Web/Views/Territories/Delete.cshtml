@@ -10,6 +10,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TerritoryID)
+    @Html.Hidden("id", Model.TerritoryID)
     <div class="modal-footer">
         <button type="submit" class="btn btn-danger">Delete</button>
         <button type="button" class="btn btn-default js-modal-close">Cancel</button>

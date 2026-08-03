@@ -12,14 +12,16 @@ namespace Northwind.DAL.Models
     public class Territory
     {
         [Key]
-        [Column(TypeName = "nvarchar")]
+        [Required]
         [StringLength(20)]
-        public string TerritoryID { get; set; }  
+        public string TerritoryID { get; set; }
+
+        [Required]
         public string TerritoryDescription { get; set; }
+
         public int RegionID { get; set; }
 
         [ForeignKey("RegionID")]
         public virtual Region Region { get; set; }
-       
     }
 }
