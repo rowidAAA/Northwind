@@ -22,9 +22,6 @@ namespace Northwind.DAL.Models
 
         public string Description { get; set; }
 
-     
-        
-
-        //public virtual ICollection<Product> Products { get; set; }
+      public virtual ICollection<Products> Products { get; set; }
     }
 }
