@@ -14,7 +14,7 @@ namespace Northwind.DAL.Models
         [Key]
         [Column(TypeName = "nchar")]
         [StringLength(5)]
-        public string CustomersID { get; set; }
+        public string CustomerID { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }

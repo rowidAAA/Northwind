@@ -1,0 +1,18 @@
+﻿@model Northwind.DAL.Models.Customers
+<div class="modal-header">
+    <button type="button" class="close js-modal-close">&times;</button>
+    <h4>Delete Customer</h4>
+</div>
+<div class="modal-body">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <p>Are you sure you want to delete <strong>@Model.CompanyName</strong>?</p>
+</div>
+@using (Html.BeginForm("Delete", "Customer"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.CustomerID)
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-default js-modal-close">Cancel</button>
+    </div>
+}

@@ -22,7 +22,7 @@ namespace Northwind.BLL
         {
             using (var db = new NorthwindContext())
             {
-                return db.Customers.FirstOrDefault(c => c.CustomersID == id);
+                return db.Customers.FirstOrDefault(c => c.CustomerID == id);
             }
         }
 
@@ -35,7 +35,7 @@ namespace Northwind.BLL
             }
         }
 
-        public void UpdateProduct(Customers customer)
+        public void UpdateCustomer(Customers customer)
         {
             customer.CompanyName = customer.CompanyName?.Trim();
             using (var db = new NorthwindContext())
