@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Northwind.DAL.Models.Products>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Products</h2>
+<p>
+    <a href="#" id="createLink">Create New</a>
+</p>
+
+<form method="get" action="@Url.Action("Index")" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        @Html.DropDownList("categoryId", (SelectList)ViewBag.CategoryFilter, "-- All Categories --", new { @class = "form-control", onchange = "this.form.submit()" })
+    </div>
+    <div class="form-group mr-2">
+        @Html.DropDownList("supplierId", (SelectList)ViewBag.SupplierFilter, "-- All Suppliers --", new { @class = "form-control", onchange = "this.form.submit()" })
+    </div>
+</form>
+
+<table class="table" id="productsTable">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.ProductName)</th>
+        <th>Category</th>
+        <th>Supplier</th>
+        <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
+        <th>@Html.DisplayNameFor(model => model.UnitsInStock)</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+            <td>@(item.Category?.CategoryName)</td>
+            <td>@(item.Supplier?.CompanyName)</td>
+            <td>@(item.UnitPrice?.ToString("C"))</td>
+            <td>@item.UnitsInStock</td>
+            <td>
+                @if (item.Discontinued)
+                {
+                    <span class="badge bg-secondary">Discontinued</span>
+                }
+                else if (item.UnitsInStock.HasValue && item.ReorderLevel.HasValue && item.UnitsInStock < item.ReorderLevel)
+                {
+                    <span class="badge bg-danger">Low Stock</span>
+                }
+                else
+                {
+                    <span class="badge bg-success">Active</span>
+                }
+            </td>
+            <td>
+                <a href="#" class="editLink" data-id="@item.ProductID">Edit</a>
+                <text> | </text>
+                <a href="#" class="deleteLink" data-id="@item.ProductID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="productModalContent"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var productModalEl = document.getElementById('productModal');
+        var productModal = new bootstrap.Modal(productModalEl);
+
+        $(function () {
+            $(document).on('click', '#createLink', function (e) {
+                e.preventDefault();
+                $.get('@Url.Action("Create")', function (data) {
+                    $('#productModalContent').html(data);
+                    productModal.show();
+                });
+            });
+
+            $(document).on('click', '.editLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Edit")/' + id, function (data) {
+                    $('#productModalContent').html(data);
+                    productModal.show();
+                });
+            });
+
+            $(document).on('click', '.deleteLink', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $.get('@Url.Action("Delete")/' + id, function (data) {
+                    $('#productModalContent').html(data);
+                    productModal.show();
+                });
+            });
+
+            $(document).on('submit', '#productModalContent form', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    statusCode: {
+                        200: function () {
+                            productModal.hide();
+                            location.reload();
+                        },
+                        400: function (xhr) {
+                            $('#productModalContent').html(xhr.responseText);
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.js-modal-close', function (e) {
+                e.preventDefault();
+                productModal.hide();
+            });
+        });
+    </script>
+}
