@@ -33,8 +33,8 @@ namespace Northwind.Web.Controllers
 
         private void PopulateDropdowns(Products product = null)
         {
-            ViewBag.CategoryID = new SelectList(categoryService.GetAllCategories(), "CategoryID", "CategoryName", product?.CategoryID);
-            ViewBag.SupplierID = new SelectList(supplierService.GetAllSuppliers(), "SupplierID", "CompanyName", product?.SupplierID);
+            ViewBag.CategoryList = new SelectList(categoryService.GetAllCategories(), "CategoryID", "CategoryName", product?.CategoryID);
+            ViewBag.SupplierList = new SelectList(supplierService.GetAllSuppliers(), "SupplierID", "CompanyName", product?.SupplierID);
         }
 
         public ActionResult Create()
