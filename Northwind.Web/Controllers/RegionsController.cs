@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 namespace Northwind.Web.Controllers
 {
     public class RegionsController : Controller
@@ -16,7 +15,6 @@ namespace Northwind.Web.Controllers
         {
             return View(regionService.GetAllRegions());
         }
-
         public ActionResult Details(int id)
         {
             var region = regionService.GetRegionByID(id);
@@ -24,12 +22,10 @@ namespace Northwind.Web.Controllers
                 return HttpNotFound();
             return View(region);
         }
-
         public ActionResult Create()
         {
             return PartialView("Create", new Region());
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Region region)
@@ -39,7 +35,6 @@ namespace Northwind.Web.Controllers
                 Response.StatusCode = 400;
                 return PartialView("Create", region);
             }
-
             try
             {
                 regionService.CreateRegion(region);
@@ -50,10 +45,8 @@ namespace Northwind.Web.Controllers
                 Response.StatusCode = 400;
                 return PartialView("Create", region);
             }
-
             return new HttpStatusCodeResult(200);
         }
-
         public ActionResult Update(int id)
         {
             var region = regionService.GetRegionByID(id);
@@ -61,27 +54,34 @@ namespace Northwind.Web.Controllers
                 return HttpNotFound();
             return View(region);
         }
-
         [HttpPost]
         public ActionResult Update(Region region)
         {
             regionService.UpdateRegion(region);
             return RedirectToAction("Index");
         }
-
         public ActionResult Delete(int id)
         {
             var region = regionService.GetRegionByID(id);
             if (region == null)
                 return HttpNotFound();
-            return View(region);
+            return PartialView("Delete", region);
         }
-
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            regionService.DeleteRegion(id);
-            return RedirectToAction("Index");
+            var region = regionService.GetRegionByID(id);
+            try
+            {
+                regionService.DeleteRegion(id);
+            }
+            catch (RegionInUseException ex)
+            {
+                Response.StatusCode = 400;
+                ViewBag.ErrorMessage = ex.Message;
+                return PartialView("Delete", region);
+            }
+            return new HttpStatusCodeResult(200);
         }
     }
 }
