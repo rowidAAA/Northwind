@@ -25,6 +25,19 @@ namespace Northwind.BLL
             }
         }
 
+        public List<string> GetDistinctRegions()
+        {
+            using (var db = new NorthwindContext())
+            {
+                return db.Suppliers
+                    .Where(s => s.Region != null && s.Region != "")
+                    .Select(s => s.Region)
+                    .Distinct()
+                    .OrderBy(r => r)
+                    .ToList();
+            }
+        }
+
         public Suppliers GetSupplierByID(int id)
         {
             using (var db = new NorthwindContext())
