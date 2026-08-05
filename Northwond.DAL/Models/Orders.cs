@@ -26,5 +26,10 @@ namespace Northwind.DAL.Models
         public string ShipRegion { get; set; }
         public string ShipPostalCode { get; set; }  
         public string ShipCountry { get; set; }
+
+        public virtual Customers Customer { get; set; }
+        //public virtual Employee Employee { get; set; }
+        //public virtual Shipper Shipper { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

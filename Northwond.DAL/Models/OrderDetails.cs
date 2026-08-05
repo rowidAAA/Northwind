@@ -16,8 +16,16 @@ namespace Northwind.DAL.Models
 
         [Key, Column(Order = 1)]
         public int ProductID { get; set; }
-        public decimal UnitPrice { get; set; }   
+
+        [Required]
+        public decimal UnitPrice { get; set; }
+
+        [Required]
         public short Quantity { get; set; }
+
         public float Discount { get; set; }
+
+        public virtual Orders Order { get; set; }
+        public virtual Products Product { get; set; }
     }
 }
