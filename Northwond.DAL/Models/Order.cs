@@ -9,22 +9,41 @@ using System.Threading.Tasks;
 namespace Northwind.DAL.Models
 {
     [Table("Orders")]
-    public class Orders
+    public class Order
     {
         [Key]
-        public int OrderID { get; set; }
-        public string CustomerID { get; set; }    
+        public int OrderID { get; set; }        [RequiredTrimmed]
+        [StringLength(5)]
+        public string CustomerID { get; set; }
+
         public int? EmployeeID { get; set; }
+
+        [Required]
         public DateTime? OrderDate { get; set; }
+
         public DateTime? RequiredDate { get; set; }
-        public DateTime? ShippedDate { get; set; }  
+        public DateTime? ShippedDate { get; set; }
         public int? ShipVia { get; set; }
-        public decimal? Freight { get; set; }       
+
+        [Range(0, 1000000)]
+        public decimal? Freight { get; set; }
+
+        [StringLength(40)]
         public string ShipName { get; set; }
+
+        [StringLength(60)]
         public string ShipAddress { get; set; }
+
+        [StringLength(15)]
         public string ShipCity { get; set; }
+
+        [StringLength(15)]
         public string ShipRegion { get; set; }
-        public string ShipPostalCode { get; set; }  
+
+        [StringLength(10)]
+        public string ShipPostalCode { get; set; }
+
+        [StringLength(15)]
         public string ShipCountry { get; set; }
 
         public virtual Customers Customer { get; set; }

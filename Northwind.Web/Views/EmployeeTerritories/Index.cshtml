@@ -1,0 +1,98 @@
+@model IEnumerable<Northwind.DAL.Models.EmployeeTerritory>
+@{
+    ViewBag.Title = "Employee Territories";
+}
+<div class="page-header">
+    <h2>Employee Territories</h2>
+    <a href="#" id="createLink" class="btn btn-primary">+ New Assignment</a>
+</div>
+
+<div class="mb-3" style="max-width: 340px">
+    <input type="search" class="form-control" data-table-filter="#employeeTerritoriesTable" placeholder="Search assignments..." />
+</div>
+
+<div class="card card-table">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="employeeTerritoriesTable">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Territory</th>
+                    <th>Region</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@(item.Employee != null ? item.Employee.LastName + ", " + item.Employee.FirstName : item.EmployeeID.ToString())</td>
+                        <td>@(item.Territory?.TerritoryDescription ?? item.TerritoryID)</td>
+                        <td>@(item.Territory?.Region?.RegionDescription)</td>
+                        <td class="text-end text-nowrap">
+                            <a href="#" class="btn btn-sm btn-danger deleteLink"
+                               data-employee-id="@item.EmployeeID" data-territory-id="@item.TerritoryID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="employeeTerritoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="employeeTerritoryModalContent"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var employeeTerritoryModalEl = document.getElementById('employeeTerritoryModal');
+        var employeeTerritoryModal = new bootstrap.Modal(employeeTerritoryModalEl);
+
+        $(function () {
+            $(document).on('click', '#createLink', function (e) {
+                e.preventDefault();
+                $.get('@Url.Action("Create")', function (data) {
+                    $('#employeeTerritoryModalContent').html(data);
+                    employeeTerritoryModal.show();
+                });
+            });
+
+            $(document).on('click', '.deleteLink', function (e) {
+                e.preventDefault();
+                var employeeId = $(this).data('employee-id');
+                var territoryId = $(this).data('territory-id');
+                $.get('@Url.Action("Delete")', { employeeId: employeeId, territoryId: territoryId }, function (data) {
+                    $('#employeeTerritoryModalContent').html(data);
+                    employeeTerritoryModal.show();
+                });
+            });
+
+            $(document).on('submit', '#employeeTerritoryModalContent form', function (e) {
+                e.preventDefault();
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: form.serialize(),
+                    statusCode: {
+                        200: function () {
+                            employeeTerritoryModal.hide();
+                            location.reload();
+                        },
+                        400: function (xhr) {
+                            $('#employeeTerritoryModalContent').html(xhr.responseText);
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.js-modal-close', function (e) {
+                e.preventDefault();
+                employeeTerritoryModal.hide();
+            });
+        });
+    </script>
+}

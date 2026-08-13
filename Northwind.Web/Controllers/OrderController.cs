@@ -9,8 +9,8 @@ namespace Northwind.Web.Controllers
     {
         private OrderService orderService = new OrderService();
         private CustomerService customerService = new CustomerService();
-        //private EmployeeService employeeService = new EmployeeService();
-        //private ShipperService shipperService = new ShipperService();
+        private EmployeeService employeeService = new EmployeeService();
+        private ShipperService shipperService = new ShipperService();
 
         public ActionResult Index()
         {
@@ -20,11 +20,11 @@ namespace Northwind.Web.Controllers
         public ActionResult Create()
         {
             LoadDropdowns();
-            return View(new Orders { OrderDate = DateTime.Now });
+            return View(new Order { OrderDate = DateTime.Now });
         }
 
         [HttpPost]
-        public ActionResult Create(Orders order)
+        public ActionResult Create(Order order)
         {
             if (!ModelState.IsValid)
             {
@@ -55,8 +55,8 @@ namespace Northwind.Web.Controllers
         private void LoadDropdowns()
         {
             ViewBag.CustomerID = new SelectList(customerService.GetAllCustomers(), "CustomerID", "CompanyName");
-            //ViewBag.EmployeeID = new SelectList(employeeService.GetAll(), "EmployeeID", "LastName");
-            //ViewBag.ShipVia = new SelectList(shipperService.GetAll(), "ShipperID", "CompanyName");
+            ViewBag.EmployeeID = new SelectList(employeeService.GetAllEmployees(), "EmployeeID", "LastName");
+            ViewBag.ShipVia = new SelectList(shipperService.GetAllShippers(), "ShipperID", "CompanyName");
         }
     }
 }

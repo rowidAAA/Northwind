@@ -53,7 +53,10 @@
   <ItemGroup>
     <Compile Include="CategoryService.cs" />
     <Compile Include="CustomerService.cs" />
+    <Compile Include="EmployeeService.cs" />
+    <Compile Include="EmployeeTerritoryService.cs" />
     <Compile Include="OrderDetailService.cs" />
+    <Compile Include="ShipperService.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

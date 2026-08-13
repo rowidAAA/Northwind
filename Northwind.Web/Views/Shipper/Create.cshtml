@@ -1,0 +1,26 @@
+@model Northwind.DAL.Models.Shippers
+
+<div class="modal-header">
+    <h5 class="modal-title">New Shipper</h5>
+    <button type="button" class="btn-close js-modal-close"></button>
+</div>
+@using (Html.BeginForm("Create", "Shipper"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="modal-body">
+        <div class="mb-3">
+            @Html.LabelFor(m => m.CompanyName, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(m => m.Phone, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary js-modal-close">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+}

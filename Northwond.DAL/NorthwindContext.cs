@@ -20,21 +20,19 @@ namespace Northwind.DAL
         public DbSet<Employees> Employees { get; set; }
         public DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
-        public DbSet<Orders> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Shippers> Shippers { get; set; }
         public DbSet<Suppliers> Suppliers { get; set; }
         public DbSet<Territory> Territories { get; set; }
-        public DbSet<Orders> Order { get; set; }
-        public DbSet<OrderDetails> OrderDetail { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmployeeTerritory>().HasKey(et => new { et.EmployeeID, et.TerritoryID });
 
             modelBuilder.Entity<OrderDetails>().HasKey(od => new { od.OrderID, od.ProductID });
-            modelBuilder.Entity<OrderDetails>().HasKey(od => new { od.OrderID, od.ProductID });
+           
         }
     }
 }

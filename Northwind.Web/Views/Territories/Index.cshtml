@@ -2,29 +2,41 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
-<p>
-    <a href="#" id="createLink">Create New</a>
-</p>
-<table class="table" id="territoriesTable">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.TerritoryDescription)</th>
-        <th>Region</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.TerritoryDescription)</td>
-            <td>@(item.Region?.RegionDescription)</td>
-            <td>
-                <a href="#" class="editLink" data-id="@item.TerritoryID">Edit</a>
-                <text> | </text>
-                <a href="#" class="deleteLink" data-id="@item.TerritoryID">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="page-header">
+    <h2>Territories</h2>
+    <a href="#" id="createLink" class="btn btn-primary">+ New Territory</a>
+</div>
+
+<div class="mb-3" style="max-width: 340px">
+    <input type="search" class="form-control" data-table-filter="#territoriesTable" placeholder="Search territories..." />
+</div>
+
+<div class="card card-table">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="territoriesTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.TerritoryDescription)</th>
+                    <th>Region</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.TerritoryDescription)</td>
+                        <td>@(item.Region?.RegionDescription)</td>
+                        <td class="text-end text-nowrap">
+                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.TerritoryID">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.TerritoryID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!-- Modal shell -->
 <div class="modal fade" id="territoryModal" tabindex="-1" role="dialog">

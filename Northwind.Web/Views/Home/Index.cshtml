@@ -1,33 +1,85 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<div class="hero">
+    <h1 class="display-4">Northwind Traders</h1>
+    <p class="lead mb-4">Manage your customers, products, orders, employees, and shippers — all in one place.</p>
+    <a href="@Url.Action("Index", "Order")" class="btn btn-light btn-lg me-2">Browse Orders</a>
+    <a href="@Url.Action("Index", "Product")" class="btn btn-success btn-lg">Browse Products</a>
+</div>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<div class="row g-3">
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Order")">
+            <div class="card-body">
+                <h5 class="card-title">Orders</h5>
+                <p class="card-text mb-0">Create orders, add line items, and track freight.</p>
+            </div>
+        </a>
     </div>
-</main>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Customer")">
+            <div class="card-body">
+                <h5 class="card-title">Customers</h5>
+                <p class="card-text mb-0">Manage customer accounts and contact details.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Product")">
+            <div class="card-body">
+                <h5 class="card-title">Products</h5>
+                <p class="card-text mb-0">Keep your catalog up to date with suppliers and stock levels.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Employee")">
+            <div class="card-body">
+                <h5 class="card-title">Employees</h5>
+                <p class="card-text mb-0">Manage your team and their territories.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Supplier")">
+            <div class="card-body">
+                <h5 class="card-title">Suppliers</h5>
+                <p class="card-text mb-0">Keep track of the companies that supply your products.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Shipper")">
+            <div class="card-body">
+                <h5 class="card-title">Shippers</h5>
+                <p class="card-text mb-0">Manage the carriers that ship your orders.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Category")">
+            <div class="card-body">
+                <h5 class="card-title">Categories</h5>
+                <p class="card-text mb-0">Organize your product catalog by category.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Regions")">
+            <div class="card-body">
+                <h5 class="card-title">Regions</h5>
+                <p class="card-text mb-0">Manage your sales regions.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a class="card quick-link-card" href="@Url.Action("Index", "Territories")">
+            <div class="card-body">
+                <h5 class="card-title">Territories</h5>
+                <p class="card-text mb-0">Manage territories within each region.</p>
+            </div>
+        </a>
+    </div>
+</div>

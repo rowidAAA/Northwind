@@ -21,7 +21,7 @@ namespace Northwind.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.RegionID = new SelectList(territoryService.GetAllRegions(), "RegionID", "RegionDescription");
-            return View();
+            return PartialView("Create", new Territory());
         }
 
         [HttpPost]

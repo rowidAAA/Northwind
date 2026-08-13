@@ -1,45 +1,95 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Northwind Traders</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark app-navbar shadow-sm">
         <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            @Html.ActionLink("Northwind Traders", "Index", "Home", null, new { @class = "navbar-brand fw-bold" })
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>*@
-                    <li>@Html.ActionLink("Regions", "Index", "Regions")</li>
-                    <li>@Html.ActionLink("Territories", "Index", "Territories")</li>
-                    <li>@Html.ActionLink("Categories", "Index", "Category")</li>
-                    <li>@Html.ActionLink("Suppliers", "Index", "Supplier")</li>
-                    <li>@Html.ActionLink("Products", "Index", "Product")</li>
-                    <li>@Html.ActionLink("Customers", "Index", "customer")</li>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Orders", "Index", "Order", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Customers", "Index", "Customer", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Products", "Index", "Product", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Employees", "Index", "Employee", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Shippers", "Index", "Shipper", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Suppliers", "Index", "Supplier", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Regions", "Index", "Regions", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Territories", "Index", "Territories", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Emp. Territories", "Index", "EmployeeTerritories", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+
+    <main class="container body-content">
+        @if (ViewContext.RouteData.Values["controller"]?.ToString() != "Home")
+        {
+            <div class="mb-3">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-sm btn-outline-secondary">&larr; Back to Home</a>
+            </div>
+        }
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container text-center">
+            <span>&copy; @DateTime.Now.Year Northwind Traders</span>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        // Client-side rule for the RequiredTrimmed attribute (rejects whitespace-only strings)
+        if (window.jQuery && jQuery.validator) {
+            jQuery.validator.addMethod('requiredtrimmed', function (value, element) {
+                return value !== undefined && value !== null && jQuery.trim(value).length > 0;
+            });
+            jQuery.validator.unobtrusive.adapters.addBool('requiredtrimmed');
+        }
+
+        // Enforce maxlength from validation metadata (data-val-length-max)
+        function applyMaxLength(scope) {
+            scope.find('input[data-val-length-max], textarea[data-val-length-max]').each(function () {
+                var $el = $(this);
+                if (!$el.attr('maxlength')) {
+                    $el.attr('maxlength', $el.attr('data-val-length-max'));
+                }
+            });
+        }
+
+        // Live search filter for any table: <input data-table-filter="#tableId">
+        $(document).on('input', '[data-table-filter]', function () {
+            var q = $(this).val().toLowerCase();
+            $($(this).data('table-filter') + ' tbody tr').each(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(q) > -1);
+            });
+        });
+
+        $(function () {
+            applyMaxLength($(document));
+            // Validate + apply maxlength to forms injected into modals via AJAX
+            $(document).on('shown.bs.modal', '.modal', function () {
+                if (window.jQuery && jQuery.validator && jQuery.validator.unobtrusive) {
+                    jQuery.validator.unobtrusive.parse($(this));
+                }
+                applyMaxLength($(this));
+            });
+        });
+    </script>
 </body>
 </html>

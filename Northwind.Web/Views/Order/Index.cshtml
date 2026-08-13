@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Northwind.DAL.Models.Order>
+
+<div class="page-header">
+    <h2>Orders</h2>
+    <a href="@Url.Action("Create")" class="btn btn-primary">+ New Order</a>
+</div>
+
+<div class="mb-3" style="max-width: 340px">
+    <input type="search" class="form-control" data-table-filter="#ordersTable" placeholder="Search orders..." />
+</div>
+
+<div class="card card-table">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="ordersTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Order Date</th>
+                    <th>Freight</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model)
+                {
+                    <tr>
+                        <td>@o.OrderID</td>
+                        <td>@(o.Customer?.CompanyName)</td>
+                        <td>@(o.OrderDate?.ToString("d"))</td>
+                        <td>@(o.Freight?.ToString("C"))</td>
+                        <td class="text-end text-nowrap">
+                            <a href="@Url.Action("Details", new { id = o.OrderID })" class="btn btn-sm btn-primary">View / Add Products</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

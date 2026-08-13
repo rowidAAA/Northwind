@@ -14,6 +14,7 @@ namespace Northwind.DAL.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RegionID { get; set; }
+        [RequiredTrimmed]
         [Column(TypeName = "nchar")]
         [StringLength(50)]
         public string RegionDescription { get; set; }

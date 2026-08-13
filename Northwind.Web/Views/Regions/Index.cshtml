@@ -2,27 +2,35 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Index</h2>
-<p>
-    <a href="#" id="createLink">Create New</a>
-</p>
-<table class="table" id="regionsTable">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.RegionDescription)</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.RegionDescription)</td>
-            <td>
-                <a href="#" class="editLink" data-id="@item.RegionID">Edit</a>
-                <text> | </text>
-                <a href="#" class="deleteLink" data-id="@item.RegionID">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="page-header">
+    <h2>Regions</h2>
+    <a href="#" id="createLink" class="btn btn-primary">+ New Region</a>
+</div>
+
+<div class="card card-table">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="regionsTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.RegionDescription)</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.RegionDescription)</td>
+                        <td class="text-end text-nowrap">
+                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.RegionID">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.RegionID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <div class="modal fade" id="regionModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="regionModalContent"></div>

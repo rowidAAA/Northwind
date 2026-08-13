@@ -13,15 +13,28 @@ namespace Northwind.DAL.Models
     {
         [Key]
         public int ProductID { get; set; }
-        [Required]
+        [RequiredTrimmed]
+        [StringLength(40)]
         public string ProductName { get; set; }
+
         public int? SupplierID { get; set; }
         public int? CategoryID { get; set; }
+
+        [StringLength(20)]
         public string QuantityPerUnit { get; set; }
+
+        [Range(0, 1000000)]
         public decimal? UnitPrice { get; set; }
+
+        [Range(0, 32767)]
         public short? UnitsInStock { get; set; }
+
+        [Range(0, 32767)]
         public short? UnitsOnOrder { get; set; }
+
+        [Range(0, 32767)]
         public short? ReorderLevel { get; set; }
+
         public bool Discontinued { get; set; }
 
         [ForeignKey("CategoryID")]

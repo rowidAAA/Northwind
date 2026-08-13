@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Northwind.DAL.Models
 {
-    [Table("OrderDetails")]
+    [Table("Order Details")]
     public class OrderDetails
     {
         [Key, Column(Order = 0)]
@@ -18,14 +18,17 @@ namespace Northwind.DAL.Models
         public int ProductID { get; set; }
 
         [Required]
+        [Range(0, 1000000)]
         public decimal UnitPrice { get; set; }
 
         [Required]
+        [Range(1, 32767)]
         public short Quantity { get; set; }
 
+        [Range(0, 1)]
         public float Discount { get; set; }
 
-        public virtual Orders Order { get; set; }
+        public virtual Order Order { get; set; }
         public virtual Products Product { get; set; }
     }
 }

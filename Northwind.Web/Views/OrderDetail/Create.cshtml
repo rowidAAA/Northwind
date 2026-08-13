@@ -1,0 +1,35 @@
+﻿@model Northwind.DAL.Models.OrderDetails
+
+<div class="modal-header"><h5>Add Product</h5></div>
+@using (Html.BeginForm("Create", "OrderDetail"))
+{
+    @Html.HiddenFor(m => m.OrderID)
+    <div class="modal-body">
+        @Html.ValidationSummary(true)
+
+        <label class="form-label">Product</label>
+        <select name="ProductID" id="ProductID" class="form-select">
+            <option value="">-- Select Product --</option>
+            @foreach (var p in (IEnumerable<Northwind.DAL.Models.Products>)ViewBag.Products)
+            {
+                <option value="@p.ProductID" data-price="@p.UnitPrice">@p.ProductName</option>
+            }
+        </select>
+        @Html.ValidationMessageFor(m => m.ProductID, "", new { @class = "text-danger" })
+
+        <label class="form-label mt-2">Quantity</label>
+        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+
+        <label class="form-label mt-2">Unit Price</label>
+        @Html.TextBoxFor(m => m.UnitPrice, new { @class = "form-control", id = "UnitPrice" })
+        @Html.ValidationMessageFor(m => m.UnitPrice, "", new { @class = "text-danger" })
+
+        <label class="form-label mt-2">Discount</label>
+        @Html.TextBoxFor(m => m.Discount, new { @class = "form-control" })
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary js-modal-close">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+}

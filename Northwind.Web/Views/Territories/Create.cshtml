@@ -1,43 +1,32 @@
 ﻿@model Northwind.DAL.Models.Territory
-@{
-    ViewBag.Title = "Create";
-}
-<h2>Create</h2>
-@using (Html.BeginForm())
+
+<div class="modal-header">
+    <h5 class="modal-title">New Territory</h5>
+    <button type="button" class="btn-close js-modal-close"></button>
+</div>
+@using (Html.BeginForm("Create", "Territories"))
 {
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <h4>Territory</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.TerritoryID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TerritoryID)
-                @Html.ValidationMessageFor(model => model.TerritoryID, "", new { @class = "text-danger" })
-            </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="modal-body">
+        <div class="mb-3">
+            @Html.LabelFor(model => model.TerritoryID, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.TerritoryID, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TerritoryID, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TerritoryDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TerritoryDescription)
-                @Html.ValidationMessageFor(model => model.TerritoryDescription, "", new { @class = "text-danger" })
-            </div>
+        <div class="mb-3">
+            @Html.LabelFor(model => model.TerritoryDescription, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.TerritoryDescription, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TerritoryDescription, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.RegionID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.RegionID, (SelectList)ViewBag.RegionID, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+        <div class="mb-3">
+            @Html.LabelFor(model => model.RegionID, new { @class = "form-label" })
+            @Html.DropDownListFor(model => model.RegionID, (SelectList)ViewBag.RegionID, "-- Select Region --", new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
         </div>
     </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default js-modal-close">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
 }
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

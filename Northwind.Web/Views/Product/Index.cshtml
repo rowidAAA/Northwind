@@ -2,60 +2,71 @@
 @{
     ViewBag.Title = "Index";
 }
-<h2>Products</h2>
-<p>
-    <a href="#" id="createLink">Create New</a>
-</p>
+<div class="page-header">
+    <h2>Products</h2>
+    <a href="#" id="createLink" class="btn btn-primary">+ New Product</a>
+</div>
 
-<form method="get" action="@Url.Action("Index")" class="form-inline mb-3">
-    <div class="form-group mr-2">
-        @Html.DropDownList("categoryId", (SelectList)ViewBag.CategoryFilter, "-- All Categories --", new { @class = "form-control", onchange = "this.form.submit()" })
+<div class="mb-3" style="max-width: 340px">
+    <input type="search" class="form-control" data-table-filter="#productsTable" placeholder="Search products..." />
+</div>
+
+<form method="get" action="@Url.Action("Index")" class="row g-2 mb-3">
+    <div class="col-auto">
+        @Html.DropDownList("categoryId", (SelectList)ViewBag.CategoryFilter, "-- All Categories --", new { @class = "form-select", onchange = "this.form.submit()" })
     </div>
-    <div class="form-group mr-2">
-        @Html.DropDownList("supplierId", (SelectList)ViewBag.SupplierFilter, "-- All Suppliers --", new { @class = "form-control", onchange = "this.form.submit()" })
+    <div class="col-auto">
+        @Html.DropDownList("supplierId", (SelectList)ViewBag.SupplierFilter, "-- All Suppliers --", new { @class = "form-select", onchange = "this.form.submit()" })
     </div>
 </form>
 
-<table class="table" id="productsTable">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.ProductName)</th>
-        <th>Category</th>
-        <th>Supplier</th>
-        <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
-        <th>@Html.DisplayNameFor(model => model.UnitsInStock)</th>
-        <th>Status</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
-            <td>@(item.Category?.CategoryName)</td>
-            <td>@(item.Supplier?.CompanyName)</td>
-            <td>@(item.UnitPrice?.ToString("C"))</td>
-            <td>@item.UnitsInStock</td>
-            <td>
-                @if (item.Discontinued)
+<div class="card card-table">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0" id="productsTable">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.ProductName)</th>
+                    <th>Category</th>
+                    <th>Supplier</th>
+                    <th>@Html.DisplayNameFor(model => model.UnitPrice)</th>
+                    <th>@Html.DisplayNameFor(model => model.UnitsInStock)</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <span class="badge bg-secondary">Discontinued</span>
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.ProductName)</td>
+                        <td>@(item.Category?.CategoryName)</td>
+                        <td>@(item.Supplier?.CompanyName)</td>
+                        <td>@(item.UnitPrice?.ToString("C"))</td>
+                        <td>@item.UnitsInStock</td>
+                        <td>
+                            @if (item.Discontinued)
+                            {
+                                <span class="badge bg-secondary">Discontinued</span>
+                            }
+                            else if (item.UnitsInStock.HasValue && item.ReorderLevel.HasValue && item.UnitsInStock < item.ReorderLevel)
+                            {
+                                <span class="badge bg-danger">Low Stock</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                        </td>
+                        <td class="text-end text-nowrap">
+                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.ProductID">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.ProductID">Delete</a>
+                        </td>
+                    </tr>
                 }
-                else if (item.UnitsInStock.HasValue && item.ReorderLevel.HasValue && item.UnitsInStock < item.ReorderLevel)
-                {
-                    <span class="badge bg-danger">Low Stock</span>
-                }
-                else
-                {
-                    <span class="badge bg-success">Active</span>
-                }
-            </td>
-            <td>
-                <a href="#" class="editLink" data-id="@item.ProductID">Edit</a>
-                <text> | </text>
-                <a href="#" class="deleteLink" data-id="@item.ProductID">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="productModalContent"></div>

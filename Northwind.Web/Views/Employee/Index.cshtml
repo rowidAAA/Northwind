@@ -1,26 +1,27 @@
-﻿@model IEnumerable<Northwind.DAL.Models.Suppliers>
+@model IEnumerable<Northwind.DAL.Models.Employees>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Employees";
 }
 <div class="page-header">
-    <h2>Suppliers</h2>
-    <a href="#" id="createLink" class="btn btn-primary">+ New Supplier</a>
+    <h2>Employees</h2>
+    <a href="#" id="createLink" class="btn btn-primary">+ New Employee</a>
 </div>
 
 <div class="mb-3" style="max-width: 340px">
-    <input type="search" class="form-control" data-table-filter="#suppliersTable" placeholder="Search suppliers..." />
+    <input type="search" class="form-control" data-table-filter="#employeesTable" placeholder="Search employees..." />
 </div>
 
 <div class="card card-table">
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0" id="suppliersTable">
+        <table class="table table-hover align-middle mb-0" id="employeesTable">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.CompanyName)</th>
-                    <th>@Html.DisplayNameFor(model => model.ContactName)</th>
+                    <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Title)</th>
                     <th>@Html.DisplayNameFor(model => model.City)</th>
                     <th>@Html.DisplayNameFor(model => model.Country)</th>
-                    <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                    <th>@Html.DisplayNameFor(model => model.HomePhone)</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
@@ -28,14 +29,15 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.CompanyName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ContactName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
                         <td>@Html.DisplayFor(modelItem => item.City)</td>
                         <td>@Html.DisplayFor(modelItem => item.Country)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HomePhone)</td>
                         <td class="text-end text-nowrap">
-                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.SupplierID">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.SupplierID">Delete</a>
+                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.EmployeeID">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.EmployeeID">Delete</a>
                         </td>
                     </tr>
                 }
@@ -43,23 +45,24 @@
         </table>
     </div>
 </div>
-<div class="modal fade" id="supplierModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="supplierModalContent"></div>
+
+<div class="modal fade" id="employeeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" id="employeeModalContent"></div>
     </div>
 </div>
 
 @section scripts {
     <script>
-        var supplierModalEl = document.getElementById('supplierModal');
-        var supplierModal = new bootstrap.Modal(supplierModalEl);
+        var employeeModalEl = document.getElementById('employeeModal');
+        var employeeModal = new bootstrap.Modal(employeeModalEl);
 
         $(function () {
             $(document).on('click', '#createLink', function (e) {
                 e.preventDefault();
                 $.get('@Url.Action("Create")', function (data) {
-                    $('#supplierModalContent').html(data);
-                    supplierModal.show();
+                    $('#employeeModalContent').html(data);
+                    employeeModal.show();
                 });
             });
 
@@ -67,8 +70,8 @@
                 e.preventDefault();
                 var id = $(this).data('id');
                 $.get('@Url.Action("Edit")/' + id, function (data) {
-                    $('#supplierModalContent').html(data);
-                    supplierModal.show();
+                    $('#employeeModalContent').html(data);
+                    employeeModal.show();
                 });
             });
 
@@ -76,12 +79,12 @@
                 e.preventDefault();
                 var id = $(this).data('id');
                 $.get('@Url.Action("Delete")/' + id, function (data) {
-                    $('#supplierModalContent').html(data);
-                    supplierModal.show();
+                    $('#employeeModalContent').html(data);
+                    employeeModal.show();
                 });
             });
 
-            $(document).on('submit', '#supplierModalContent form', function (e) {
+            $(document).on('submit', '#employeeModalContent form', function (e) {
                 e.preventDefault();
                 var form = $(this);
                 $.ajax({
@@ -90,11 +93,11 @@
                     data: form.serialize(),
                     statusCode: {
                         200: function () {
-                            supplierModal.hide();
+                            employeeModal.hide();
                             location.reload();
                         },
                         400: function (xhr) {
-                            $('#supplierModalContent').html(xhr.responseText);
+                            $('#employeeModalContent').html(xhr.responseText);
                         }
                     }
                 });
@@ -102,7 +105,7 @@
 
             $(document).on('click', '.js-modal-close', function (e) {
                 e.preventDefault();
-                supplierModal.hide();
+                employeeModal.hide();
             });
         });
     </script>

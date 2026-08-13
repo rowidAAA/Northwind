@@ -16,7 +16,7 @@ namespace Northwind.DAL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryID { get; set; }
 
-        [Required]
+        [RequiredTrimmed]
         [StringLength(15)]
         public string CategoryName { get; set; }
 

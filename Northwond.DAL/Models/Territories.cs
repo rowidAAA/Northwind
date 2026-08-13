@@ -12,11 +12,12 @@ namespace Northwind.DAL.Models
     public class Territory
     {
         [Key]
-        [Required]
+        [RequiredTrimmed]
         [StringLength(20)]
         public string TerritoryID { get; set; }
 
-        [Required]
+        [RequiredTrimmed]
+        [StringLength(50)]
         public string TerritoryDescription { get; set; }
 
         public int RegionID { get; set; }

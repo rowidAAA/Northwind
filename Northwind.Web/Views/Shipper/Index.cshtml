@@ -1,19 +1,19 @@
-﻿@model IEnumerable<Northwind.DAL.Models.Category>
+@model IEnumerable<Northwind.DAL.Models.Shippers>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Shippers";
 }
 <div class="page-header">
-    <h2>Categories</h2>
-    <a href="#" id="createLink" class="btn btn-primary">+ New Category</a>
+    <h2>Shippers</h2>
+    <a href="#" id="createLink" class="btn btn-primary">+ New Shipper</a>
 </div>
 
 <div class="card card-table">
     <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0" id="categoriesTable">
+        <table class="table table-hover align-middle mb-0" id="shippersTable">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
-                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                    <th>@Html.DisplayNameFor(model => model.CompanyName)</th>
+                    <th>@Html.DisplayNameFor(model => model.Phone)</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
@@ -21,11 +21,11 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.CategoryName)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CompanyName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Phone)</td>
                         <td class="text-end text-nowrap">
-                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.CategoryID">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.CategoryID">Delete</a>
+                            <a href="#" class="btn btn-sm btn-primary editLink" data-id="@item.ShipperID">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@item.ShipperID">Delete</a>
                         </td>
                     </tr>
                 }
@@ -33,23 +33,24 @@
         </table>
     </div>
 </div>
-<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
+
+<div class="modal fade" id="shipperModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" id="categoryModalContent"></div>
+        <div class="modal-content" id="shipperModalContent"></div>
     </div>
 </div>
 
 @section scripts {
     <script>
-        var categoryModalEl = document.getElementById('categoryModal');
-        var categoryModal = new bootstrap.Modal(categoryModalEl);
+        var shipperModalEl = document.getElementById('shipperModal');
+        var shipperModal = new bootstrap.Modal(shipperModalEl);
 
         $(function () {
             $(document).on('click', '#createLink', function (e) {
                 e.preventDefault();
                 $.get('@Url.Action("Create")', function (data) {
-                    $('#categoryModalContent').html(data);
-                    categoryModal.show();
+                    $('#shipperModalContent').html(data);
+                    shipperModal.show();
                 });
             });
 
@@ -57,8 +58,8 @@
                 e.preventDefault();
                 var id = $(this).data('id');
                 $.get('@Url.Action("Edit")/' + id, function (data) {
-                    $('#categoryModalContent').html(data);
-                    categoryModal.show();
+                    $('#shipperModalContent').html(data);
+                    shipperModal.show();
                 });
             });
 
@@ -66,12 +67,12 @@
                 e.preventDefault();
                 var id = $(this).data('id');
                 $.get('@Url.Action("Delete")/' + id, function (data) {
-                    $('#categoryModalContent').html(data);
-                    categoryModal.show();
+                    $('#shipperModalContent').html(data);
+                    shipperModal.show();
                 });
             });
 
-            $(document).on('submit', '#categoryModalContent form', function (e) {
+            $(document).on('submit', '#shipperModalContent form', function (e) {
                 e.preventDefault();
                 var form = $(this);
                 $.ajax({
@@ -80,11 +81,11 @@
                     data: form.serialize(),
                     statusCode: {
                         200: function () {
-                            categoryModal.hide();
+                            shipperModal.hide();
                             location.reload();
                         },
                         400: function (xhr) {
-                            $('#categoryModalContent').html(xhr.responseText);
+                            $('#shipperModalContent').html(xhr.responseText);
                         }
                     }
                 });
@@ -92,7 +93,7 @@
 
             $(document).on('click', '.js-modal-close', function (e) {
                 e.preventDefault();
-                categoryModal.hide();
+                shipperModal.hide();
             });
         });
     </script>

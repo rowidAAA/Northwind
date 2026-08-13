@@ -11,7 +11,7 @@ namespace Northwind.BLL
 {
     public class OrderService
     {
-        public List<Orders> GetAll()
+        public List<Order> GetAll()
         {
             using (var db = new NorthwindContext())
             {
@@ -19,7 +19,7 @@ namespace Northwind.BLL
             }
         }
 
-        public Orders GetOrderByID(int id)
+        public Order GetOrderByID(int id)
         {
             using (var db =new NorthwindContext())
             {
@@ -27,8 +27,16 @@ namespace Northwind.BLL
             }
         }
 
-        public Orders Create(Orders order)
+        public Order Create(Order order)
         {
+            order.CustomerID = order.CustomerID?.Trim();
+            order.ShipName = order.ShipName?.Trim();
+            order.ShipAddress = order.ShipAddress?.Trim();
+            order.ShipCity = order.ShipCity?.Trim();
+            order.ShipRegion = order.ShipRegion?.Trim();
+            order.ShipPostalCode = order.ShipPostalCode?.Trim();
+            order.ShipCountry = order.ShipCountry?.Trim();
+
             using (var db = new NorthwindContext())
             {
                 db.Orders.Add(order);

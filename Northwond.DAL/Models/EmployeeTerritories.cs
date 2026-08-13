@@ -15,6 +15,13 @@ namespace Northwind.DAL.Models
         public int EmployeeID { get; set; }
 
         [Key, Column(Order = 1)]
+        [RequiredTrimmed]
         public string TerritoryID { get; set; }
+
+        [ForeignKey("EmployeeID")]
+        public virtual Employees Employee { get; set; }
+
+        [ForeignKey("TerritoryID")]
+        public virtual Territory Territory { get; set; }
     }
 }
