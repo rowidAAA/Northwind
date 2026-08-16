@@ -44,9 +44,11 @@ namespace Northwind.DAL.Models
         [StringLength(15)]
         public string Country { get; set; }
 
+        [PhoneNumber]
         [StringLength(24)]
         public string HomePhone { get; set; }
 
+        [DigitsOnly]
         [StringLength(4)]
         public string Extension { get; set; }
 

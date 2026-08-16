@@ -61,10 +61,12 @@
   <ItemGroup>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customers.cs" />
+    <Compile Include="Models\DigitsOnlyAttribute.cs" />
     <Compile Include="Models\Employees.cs" />
     <Compile Include="Models\EmployeeTerritories.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\PhoneNumberAttribute.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\RequiredTrimmedAttribute.cs" />

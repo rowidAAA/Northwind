@@ -43,10 +43,12 @@
             <div class="col-md-6 mb-3">
                 @Html.LabelFor(m => m.HomePhone, new { @class = "form-label" })
                 @Html.TextBoxFor(m => m.HomePhone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.HomePhone, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-6 mb-3">
                 @Html.LabelFor(m => m.Extension, new { @class = "form-label" })
                 @Html.TextBoxFor(m => m.Extension, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Extension, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-6 mb-3">
                 @Html.LabelFor(m => m.City, new { @class = "form-label" })

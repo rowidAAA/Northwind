@@ -18,6 +18,7 @@ namespace Northwind.DAL.Models
         [StringLength(40)]
         public string CompanyName { get; set; }
 
+        [PhoneNumber]
         [StringLength(24)]
         public string Phone { get; set; }
     }

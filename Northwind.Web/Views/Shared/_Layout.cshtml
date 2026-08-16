@@ -56,6 +56,20 @@
                 return value !== undefined && value !== null && jQuery.trim(value).length > 0;
             });
             jQuery.validator.unobtrusive.adapters.addBool('requiredtrimmed');
+
+            // Client-side rule for the PhoneNumber attribute (rejects letters and other non-phone characters)
+            jQuery.validator.addMethod('phonenumber', function (value, element) {
+                if (!value || jQuery.trim(value).length === 0) return true; // optional field
+                return /^[0-9+\-().\s]+$/.test(value);
+            });
+            jQuery.validator.unobtrusive.adapters.addBool('phonenumber');
+
+            // Client-side rule for the DigitsOnly attribute (rejects anything that is not a digit)
+            jQuery.validator.addMethod('digitsonly', function (value, element) {
+                if (!value || jQuery.trim(value).length === 0) return true; // optional field
+                return /^[0-9]+$/.test(value);
+            });
+            jQuery.validator.unobtrusive.adapters.addBool('digitsonly');
         }
 
         // Enforce maxlength from validation metadata (data-val-length-max)
