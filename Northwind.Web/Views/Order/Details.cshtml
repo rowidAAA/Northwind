@@ -37,7 +37,7 @@
                 <td>@d.Discount.ToString("P0")</td>
                 <td>@((d.UnitPrice * d.Quantity * (1 - (decimal)d.Discount)).ToString("C"))</td>
                 <td>
-                    <a href="#" class="deleteDetailLink" data-order-id="@d.OrderID" data-product-id="@d.ProductID">Delete</a>
+                    <button type="button" class="btn btn-sm btn-danger deleteDetailLink" data-order-id="@d.OrderID" data-product-id="@d.ProductID">Delete</button>
                 </td>
             </tr>
         }

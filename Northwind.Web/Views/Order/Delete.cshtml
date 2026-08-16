@@ -1,0 +1,19 @@
+@model Northwind.DAL.Models.Order
+
+<div class="modal-header">
+    <h5 class="modal-title">Delete Order</h5>
+    <button type="button" class="btn-close js-modal-close"></button>
+</div>
+@using (Html.BeginForm("Delete", "Order"))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", Model.OrderID)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="modal-body">
+        <p class="mb-0">Are you sure you want to delete order <strong>#@Model.OrderID</strong> for <strong>@(Model.Customer?.CompanyName)</strong>? Its line items will be deleted too.</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary js-modal-close">Cancel</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </div>
+}

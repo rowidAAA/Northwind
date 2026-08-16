@@ -32,6 +32,19 @@ namespace Northwind.BLL
             }
         }
 
+        public void Delete(int id)
+        {
+            using (var db = new NorthwindContext())
+            {
+                var order = db.Orders.Find(id);
+                if (order == null) return;
+
+                db.OrderDetails.RemoveRange(db.OrderDetails.Where(od => od.OrderID == id));
+                db.Orders.Remove(order);
+                db.SaveChanges();
+            }
+        }
+
         public Order Create(Order order)
         {
             order.CustomerID = order.CustomerID?.Trim();

@@ -52,6 +52,31 @@ namespace Northwind.Web.Controllers
             return View(order);
         }
 
+        public ActionResult Delete(int id)
+        {
+            var order = orderService.GetOrderByID(id);
+            if (order == null) return HttpNotFound();
+            return PartialView("Delete", order);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            try
+            {
+                orderService.Delete(id);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Could not delete the order.");
+                Response.StatusCode = 400;
+                return PartialView("Delete", orderService.GetOrderByID(id));
+            }
+
+            return new HttpStatusCodeResult(200);
+        }
+
         private void LoadDropdowns()
         {
             ViewBag.CustomerID = new SelectList(customerService.GetAllCustomers(), "CustomerID", "CompanyName");

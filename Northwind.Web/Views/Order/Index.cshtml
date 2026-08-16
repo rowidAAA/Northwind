@@ -31,6 +31,7 @@
                         <td>@(o.Freight?.ToString("C"))</td>
                         <td class="text-end text-nowrap">
                             <a href="@Url.Action("Details", new { id = o.OrderID })" class="btn btn-sm btn-primary">View / Add Products</a>
+                            <a href="#" class="btn btn-sm btn-danger deleteLink" data-id="@o.OrderID">Delete</a>
                         </td>
                     </tr>
                 }
@@ -38,3 +39,49 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="orderModalContent"></div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var orderModalEl = document.getElementById('orderModal');
+        var orderModal = new bootstrap.Modal(orderModalEl);
+
+        $(document).on('click', '.deleteLink', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            $.get('@Url.Action("Delete")/' + id, function (data) {
+                $('#orderModalContent').html(data);
+                orderModal.show();
+            });
+        });
+
+        $(document).on('submit', '#orderModalContent form', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                statusCode: {
+                    200: function () {
+                        orderModal.hide();
+                        location.reload();
+                    },
+                    400: function (xhr) {
+                        $('#orderModalContent').html(xhr.responseText);
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '.js-modal-close', function (e) {
+            e.preventDefault();
+            orderModal.hide();
+        });
+    </script>
+}
