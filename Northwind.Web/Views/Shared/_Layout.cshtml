@@ -16,14 +16,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <nav style="display:flex; gap:20px; font-size:14px;">
-                @Html.ActionLink("Region", "Index", "Region")
-                @Html.ActionLink("Territory", "Index", "Territory")
+                @Html.ActionLink("Region", "Index", "Regions")
+                @Html.ActionLink("Territory", "Index", "Territories")
                 @Html.ActionLink("Category", "Index", "Category")
                 @Html.ActionLink("Supplier", "Index", "Supplier")
                 @Html.ActionLink("Product", "Index", "Product")
                 @Html.ActionLink("Customer", "Index", "Customer")
-                <span title="Not implemented yet" style="color:#999; cursor:not-allowed;">Employee</span>
-                <span title="Not implemented yet" style="color:#999; cursor:not-allowed;">Shipper</span>
+                @Html.ActionLink("Employee", "Index", "Employee")
+                @Html.ActionLink("Shipper", "Index", "Shipper")
                 @Html.ActionLink("Order", "Index", "Order")
             </nav>
         </div>

@@ -36,7 +36,7 @@
 <div class="row g-3">
 
     <div class="col-md-3">
-        <a href="@Url.Action("Index","Region")" class="text-decoration-none text-body">
+        <a href="@Url.Action("Index","Regions")" class="text-decoration-none text-body">
             <div class="card p-3 h-100">
                 <div class="fw-bold">Region</div>
                 <div class="text-muted small">@ViewBag.RegionCount regions</div>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="col-md-3">
-        <a href="@Url.Action("Index","Territory")" class="text-decoration-none text-body">
+        <a href="@Url.Action("Index","Territories")" class="text-decoration-none text-body">
             <div class="card p-3 h-100">
                 <div class="fw-bold">Territory</div>
                 <div class="text-muted small">@ViewBag.TerritoryCount territories</div>
@@ -89,23 +89,22 @@
         </a>
     </div>
 
-    @* Employee and Shipper: stub services only, no controller/views yet.
-        Not wrapped in a link — nothing to route to. Count still shown since
-        EmployeeService/ShipperService.GetAll() already exist. *@
     <div class="col-md-3">
-        <div class="card p-3 h-100 bg-light">
-            <div class="fw-bold text-muted">Employee</div>
-            <div class="text-muted small">@ViewBag.EmployeeCount employees</div>
-            <div class="text-muted small fst-italic">Not implemented yet</div>
-        </div>
+        <a href="@Url.Action("Index","Employee")" class="text-decoration-none text-body">
+            <div class="card p-3 h-100">
+                <div class="fw-bold">Employee</div>
+                <div class="text-muted small">@ViewBag.EmployeeCount employees</div>
+            </div>
+        </a>
     </div>
 
     <div class="col-md-3">
-        <div class="card p-3 h-100 bg-light">
-            <div class="fw-bold text-muted">Shipper</div>
-            <div class="text-muted small">@ViewBag.ShipperCount shippers</div>
-            <div class="text-muted small fst-italic">Not implemented yet</div>
-        </div>
+        <a href="@Url.Action("Index","Shipper")" class="text-decoration-none text-body">
+            <div class="card p-3 h-100">
+                <div class="fw-bold">Shipper</div>
+                <div class="text-muted small">@ViewBag.ShipperCount shippers</div>
+            </div>
+        </a>
     </div>
 
     <div class="col-md-3">
