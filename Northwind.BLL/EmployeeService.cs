@@ -44,7 +44,7 @@ namespace Northwind.BLL
             using (var db = new NorthwindContext())
             {
                 db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
-                // Not editable from the form — keep existing values.
+                
                 db.Entry(employee).Property(e => e.Photo).IsModified = false;
                 db.Entry(employee).Property(e => e.PhotoPath).IsModified = false;
                 db.SaveChanges();

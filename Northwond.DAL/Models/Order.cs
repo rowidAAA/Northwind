@@ -47,8 +47,10 @@ namespace Northwind.DAL.Models
         public string ShipCountry { get; set; }
 
         public virtual Customers Customer { get; set; }
-        //public virtual Employee Employee { get; set; }
-        //public virtual Shipper Shipper { get; set; }
+        public virtual Employees Employee { get; set; }
+
+        [ForeignKey("ShipVia")]
+        public virtual Shippers Shipper { get; set; }
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
     }
 }

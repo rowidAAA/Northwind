@@ -23,7 +23,12 @@ namespace Northwind.BLL
         {
             using (var db =new NorthwindContext())
             {
-                return db.Orders.Include(o=>o.Customer).Include(o => o.OrderDetails.Select(od => od.Product)).FirstOrDefault(o => o.OrderID == id);
+                return db.Orders
+                    .Include(o => o.Customer)
+                    .Include(o => o.Employee)
+                    .Include(o => o.Shipper)
+                    .Include(o => o.OrderDetails.Select(od => od.Product))
+                    .FirstOrDefault(o => o.OrderID == id);
             }
         }
 

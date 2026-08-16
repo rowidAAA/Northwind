@@ -15,21 +15,17 @@
                     aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Orders", "Index", "Order", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Customers", "Index", "Customer", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Products", "Index", "Product", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Employees", "Index", "Employee", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Shippers", "Index", "Shipper", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Suppliers", "Index", "Supplier", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Regions", "Index", "Regions", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Territories", "Index", "Territories", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Emp. Territories", "Index", "EmployeeTerritories", null, new { @class = "nav-link" })</li>
-                </ul>
-            </div>
+            <nav style="display:flex; gap:20px; font-size:14px;">
+                @Html.ActionLink("Region", "Index", "Region")
+                @Html.ActionLink("Territory", "Index", "Territory")
+                @Html.ActionLink("Category", "Index", "Category")
+                @Html.ActionLink("Supplier", "Index", "Supplier")
+                @Html.ActionLink("Product", "Index", "Product")
+                @Html.ActionLink("Customer", "Index", "Customer")
+                <span title="Not implemented yet" style="color:#999; cursor:not-allowed;">Employee</span>
+                <span title="Not implemented yet" style="color:#999; cursor:not-allowed;">Shipper</span>
+                @Html.ActionLink("Order", "Index", "Order")
+            </nav>
         </div>
     </nav>
 
