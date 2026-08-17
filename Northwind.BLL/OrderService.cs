@@ -15,7 +15,10 @@ namespace Northwind.BLL
         {
             using (var db = new NorthwindContext())
             {
-                return db.Orders.Include(o => o.Customer).OrderByDescending(o => o.OrderID).ToList();
+                return db.Orders
+                    .Include(o => o.Customer)
+                    .Include(o => o.OrderDetails)
+                    .OrderByDescending(o => o.OrderID).ToList();
             }
         }
 
