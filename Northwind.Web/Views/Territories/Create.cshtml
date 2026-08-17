@@ -11,7 +11,7 @@
     <div class="modal-body">
         <div class="mb-3">
             @Html.LabelFor(model => model.TerritoryID, new { @class = "form-label" })
-            @Html.TextBoxFor(model => model.TerritoryID, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.TerritoryID, new { @class = "form-control", maxlength = "20" })
             @Html.ValidationMessageFor(model => model.TerritoryID, "", new { @class = "text-danger" })
         </div>
         <div class="mb-3">
